@@ -5,6 +5,7 @@ import { Game, SelectedGame } from './types';
 import { mockGames } from './lib/mock-games';
 import { GamePicker } from './components/game-picker';
 import { BetSlip } from './components/bet-slip';
+import { WinnerLogo } from './components/winner-logo';
 
 export default function Home() {
   const [selectedGames, setSelectedGames] = useState<SelectedGame[]>([]);
@@ -94,7 +95,7 @@ export default function Home() {
           )}
           
           {/* Left side - Winner Logo */}
-          <div className="winner-logo-text text-2xl">Winner</div>
+          <WinnerLogo className="h-8 w-auto" />
         </div>
       </header>
 
@@ -102,10 +103,10 @@ export default function Home() {
       <div className="bg-[#2a2a2a] border-b border-[#3a3a3a]">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <h1 className="text-xl font-bold text-white">
-            יוצר טפסים מנצחים 🏆
+            בוא תבנה טופס שכבר ניצח
           </h1>
           <p className="text-[#888] text-sm mt-1">
-            בחר משחקים שכבר נגמרו וצור טופס זכייה מושלם עם AI
+            תמיד רצית להראות לחבר׳ה שאתה חזק בווינר? עכשיו אתה יכול!
           </p>
         </div>
       </div>
