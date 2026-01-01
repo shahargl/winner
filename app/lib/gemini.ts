@@ -1,7 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { SelectedGame } from '../types';
-import * as fs from 'fs';
-import * as path from 'path';
 
 // Types for Gemini image generation
 export interface GeminiImageResponse {
@@ -31,22 +29,27 @@ export function getGemini(): GoogleGenerativeAI {
   return _genAI;
 }
 
-// Load example images as base64 for reference
+// Load example images as base64 for reference - works both locally and on Vercel
 export async function getExampleImagesBase64(): Promise<{ data: string; mimeType: string }[]> {
-  const examplesDir = path.join(process.cwd(), 'examples');
+  const images: { data: string; mimeType: string }[] = [];
   const files = ['tofes1.jpeg', 'tofes2.jpeg', 'tofes3.jpeg', 'tofes4.jpeg'];
   
-  const images: { data: string; mimeType: string }[] = [];
+  // Determine base URL - use VERCEL_URL in production or localhost in dev
+  const baseUrl = process.env.VERCEL_URL 
+    ? `https://${process.env.VERCEL_URL}` 
+    : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   
   for (const file of files) {
     try {
-      const filePath = path.join(examplesDir, file);
-      const buffer = fs.readFileSync(filePath);
-      const base64 = buffer.toString('base64');
-      images.push({
-        data: base64,
-        mimeType: 'image/jpeg',
-      });
+      const response = await fetch(`${baseUrl}/${file}`);
+      if (response.ok) {
+        const arrayBuffer = await response.arrayBuffer();
+        const base64 = Buffer.from(arrayBuffer).toString('base64');
+        images.push({
+          data: base64,
+          mimeType: 'image/jpeg',
+        });
+      }
     } catch (error) {
       console.error(`Failed to load example image ${file}:`, error);
     }
