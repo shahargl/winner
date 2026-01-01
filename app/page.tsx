@@ -103,11 +103,10 @@ export default function Home() {
       <div className="bg-[#2a2a2a] border-b border-[#3a3a3a]">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <h1 className="text-xl font-bold text-white">
-            בוא תבנה טופס שכבר ניצח
+            בוא תראה לחבר׳ה שאתה חזק בווינר
           </h1>
           <p className="text-[#888] text-sm mt-1">
-            תמיד רצית להראות לחבר׳ה שאתה חזק בווינר? עכשיו אתה יכול!
-          </p>
+תמיד רצית להשוויץ עם טפסים פסיכיים? עכשיו אתה יכול!          </p>
         </div>
       </div>
 
@@ -166,7 +165,7 @@ export default function Home() {
               מייצר את הטופס שלך
             </h3>
             <p className="text-[#888] text-sm mb-4">
-              זה עלול לקחת מספר שניות...
+              זה לוקח איזה 15-30 שניות אבל זה שווה את זה
             </p>
             
             {/* Animated dots */}

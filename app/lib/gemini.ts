@@ -80,41 +80,50 @@ function buildHebrewReceiptText(
 - "מכפיל:" followed by "${game.odds.toFixed(2)}"`;
   }).join('\n');
 
-  const prompt = `Create a high-resolution photorealistic image of an Israeli WinnerLINE betting receipt held in a human hand.
+  const prompt = `SUPER IMPORTANT: Generate an EXTREMELY PHOTOREALISTIC image that looks EXACTLY like a real photograph taken with an iPhone camera. This must be INDISTINGUISHABLE from a real photo.
 
-TEXT REQUIREMENTS - The Hebrew text MUST be rendered exactly as written below. Use standard Hebrew sans-serif font, right-to-left:
+The image shows a REAL Israeli WinnerLINE betting receipt held in a REAL human hand.
 
-=== HEADER ===
-Logo text: "WinnerLINE" with checkered racing flag pattern
-Below logo, the Hebrew word: "קבלה"
+=== PHOTOREALISM REQUIREMENTS (CRITICAL) ===
+- This MUST look like a real iPhone photo, NOT a render or illustration
+- Real human hand with visible skin texture, pores, fingernails, natural skin tone variations
+- Natural lighting with soft shadows as if taken indoors
+- Slight motion blur or focus imperfections like a real phone photo
+- The paper should have REAL thermal paper texture - slightly shiny, with micro-imperfections
+- Natural paper curl and slight wrinkles from being held
+- Realistic ambient shadows where fingers grip the paper
+- Background should be slightly out of focus (depth of field)
+- Paper edges should show natural wear or slight fraying
+- Include subtle environmental reflections on the glossy thermal paper
+- The hand position should look natural and candid, not posed
 
-=== RECEIPT DETAILS ===
-Line 1: "מספר קבלה:" followed by "${receiptNumber}"
-Line 2: "תאריך:" followed by "${date}"
-Line 3: "שעה:" followed by "${time}"
-Line 4: "סניף:" followed by "(0137) תל אביב - דיזנגוף"
+=== HEBREW TEXT (EXACT - DO NOT MODIFY) ===
+Header: "WinnerLINE" logo with checkered flag, then "קבלה" below
 
-=== GAMES SECTION (${selections.length} game${selections.length > 1 ? 's' : ''}) ===
+Receipt details:
+"מספר קבלה:" ${receiptNumber}
+"תאריך:" ${date}
+"שעה:" ${time}
+"סניף:" (0137) תל אביב - דיזנגוף
+
+Games (${selections.length}):
 ${gamesSection}
 
-=== SUMMARY ===
-"סכום:" followed by "₪${stake.toFixed(2)}"
-"מכפיל כולל:" followed by "${totalOdds.toFixed(2)}"
-"זכייה:" followed by "₪${winnings.toFixed(2)}"
+Summary:
+"סכום:" ₪${stake.toFixed(2)}
+"מכפיל כולל:" ${totalOdds.toFixed(2)}
+"זכייה:" ₪${winnings.toFixed(2)}
 
-=== FOOTER ===
-Barcode with numbers underneath
+Footer: Barcode with numbers
 
-=== STYLE ===
-- White thermal receipt paper with realistic texture
-- Black monospace thermal printer text
-- Paper held naturally in a human hand
-- Slight paper curl and shadows for realism
-- All Hebrew characters MUST be legible and correctly rendered right-to-left
-- Use clean, readable Hebrew sans-serif typography
-- Do NOT add any green stamp or winner badge
+=== PRINTING STYLE ===
+- Black thermal printer ink on white receipt paper
+- Monospace font typical of thermal printers
+- Hebrew text RIGHT-TO-LEFT
+- Clean, legible characters
+- NO green stamps or winner badges
 
-CRITICAL: Copy each Hebrew word EXACTLY as written in quotes above. Do not invent or modify the Hebrew text.`;
+REMEMBER: The final image must be SO REALISTIC that someone would believe it's a real photo of a real betting receipt. Focus on photographic realism above all else.`;
 
   return { prompt };
 }
@@ -147,12 +156,19 @@ export async function generateReceiptWithGemini(
       | { inlineData: { data: string; mimeType: string } }
     )[] = [];
 
-    // Add example images first
+    // Add example images first - emphasize studying the PHOTOREALISTIC qualities
     if (exampleImages.length > 0) {
       parts.push({ 
-        text: 'Here are examples of real Israeli Winner betting receipts. Study the exact layout, typography, and Hebrew text structure:' 
+        text: `REFERENCE PHOTOS: These are REAL photographs of actual Israeli Winner betting receipts. Study EVERYTHING about these photos:
+- The exact way human hands hold the paper
+- The realistic lighting and shadows
+- The paper texture and slight imperfections  
+- The thermal print quality
+- The natural, candid feel of the photos
+
+Your generated image MUST match this level of photorealism. It should be IMPOSSIBLE to tell your image apart from these real photos:` 
       });
-      for (const img of exampleImages.slice(0, 2)) {
+      for (const img of exampleImages.slice(0, 3)) {
         parts.push({ inlineData: img });
       }
     }
