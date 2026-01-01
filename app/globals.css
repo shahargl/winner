@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #1a1a1a;
+  --color-foreground: #ffffff;
+  --font-sans: var(--font-heebo), system-ui, sans-serif;
+  --font-mono: "Courier New", monospace;
+}
+
+:root {
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --winner-red: #cc0000;
+  --winner-dark-red: #990000;
+  --winner-gold: #ffd700;
+  --winner-yellow: #ffcc00;
+  --winner-gray: #2a2a2a;
+  --winner-dark-gray: #1f1f1f;
+  --winner-light-gray: #3a3a3a;
+  --odds-green: #4CAF50;
+  --odds-disabled: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100dvh;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  overscroll-behavior: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Winner Header - Red gradient like real site */
+.winner-header {
+  background: linear-gradient(180deg, #cc0000 0%, #990000 100%);
+  border-bottom: 3px solid #ffcc00;
+}
+
+/* Winner Logo - Gold script style */
+.winner-logo-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+}
+
+/* Ticket Paper */
+.ticket-paper {
+  background: linear-gradient(
+    to bottom,
+    #fafaf8 0%,
+    #f5f5f2 50%,
+    #f0f0ed 100%
+  );
+  color: #1a1a1a;
+  font-family: "Courier New", monospace;
+  padding: 16px 14px 24px;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.4);
+  max-width: 320px;
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Paper texture */
+.ticket-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.015;
+  pointer-events: none;
+}
+
+/* Winner logo on ticket - Dark red */
+.ticket-winner-logo {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #cc0000;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
+
+/* Barcode */
+.barcode-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 35px;
+}
+
+.barcode-line {
+  background: #000;
+  display: inline-block;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* Winner button - Yellow like real site */
+.btn-winner {
+  background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
+  color: #1a1a1a;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-winner:hover {
+  background: linear-gradient(180deg, #ffe033 0%, #ffcc00 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+}
+
+.btn-winner:active {
+  transform: translateY(0);
+}
+
+.btn-winner:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Odds button styles */
+.odds-btn {
+  min-width: 50px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.odds-btn-winner {
+  background: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.odds-btn-loser {
+  background: #2a2a2a;
+  color: #666;
+  border: 1px solid #3a3a3a;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.odds-btn-selected {
+  background: #ffcc00;
+  color: #1a1a1a;
+  border: 2px solid #ffcc00;
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+/* RTL */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Mobile bottom nav padding */
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: 70px;
+  }
+}
+
+/* Mobile responsive ticket */
+@media (max-width: 640px) {
+  .ticket-paper {
+    max-width: 100%;
+    margin: 0 -16px;
+    border-radius: 0;
+  }
+}
